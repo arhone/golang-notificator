@@ -6,7 +6,7 @@
 
 ```shell
 curl --location --request POST 'localhost:10001' \
---form 'address="cab6c4b0b"' \
+--form 'address="b6c4bca0b"' \
 --form 'subject="Проверка"' \
 --form 'body="Тест отправки сообщения в телеграм, слак и на почту одновременно"' \
 --form 'message="Тест отправки сообщения в телеграм, слак и на почту одновременно"'
