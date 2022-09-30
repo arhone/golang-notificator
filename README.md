@@ -44,20 +44,20 @@ cat ~/.ssh/golang-notificator.pub
 
 ```shell
 cd /srv
-sudo mkdir nmgtech
+sudo mkdir arhone
 sudo chown $USER:$USER arhone
 ```
 ```shell
-cd /srv/nmgtech
+cd /srv/arhone
 sudo mkdir golang-notificator
 sudo chown $USER:$USER golang-notificator
 ```
 
 ```shell
-git clone git@golang-notificator.github.com:nmgtech/golang-notificator.git ./golang-notificator
+git clone git@golang-notificator.github.com:arhone/golang-notificator.git ./golang-notificator
 ```
 ```shell
-cd /srv/nmgtech/golang-notificator
+cd /srv/arhone/golang-notificator
 ```
 
 ## Настройка
