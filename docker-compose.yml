@@ -12,5 +12,8 @@ services:
         volumes:
             - "./logs:/srv/golang-notificator/logs"
         ports:
-            - ${HOST_PORT}:${CONTAINER_PORT}
+            - mode: host
+              target: ${CONTAINER_PORT}
+              published: ${HOST_PORT}
+              protocol: tcp
         restart: unless-stopped
