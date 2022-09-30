@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+    service:
+        env_file: .env
+        container_name: ${CONTAINER_NAME}
+        build:
+            context: .
+            dockerfile: config/docker/Dockerfile
+            args:
+                - GOLANG_VERSION=${GOLANG_VERSION}
+                - TZ=${TZ}
+        volumes:
+            - "./logs:/srv/golang-notificator/logs"
+        ports:
+            - ${HOST_PORT}:${CONTAINER_PORT}
+        restart: unless-stopped

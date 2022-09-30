@@ -1,0 +1,76 @@
+{
+    "port": 10001,
+    "debug": true,
+    "addresses": {
+        "cabbaf06c4": {
+            "description": "Тестовый адрес для проверки отправки сообщений в телеграм",
+            "handlers": ["telegram"],
+            "config": {
+                "telegram": {
+                    "message": "Текст сообщения",
+                    "token": "bot:token",
+                    "chat_id": 0
+                }
+            }
+        },
+        "4bafab6c0c": {
+            "description": "Тестовый адрес для проверки отправки сообщений в slack",
+            "handlers": ["slack"],
+            "config": {
+                "slack": {
+                    "message": "Текст сообщения",
+                    "token": "token",
+                    "users": ["string-id"]
+                }
+            }
+        },
+        "30b0f4baf": {
+            "description": "Тестовый адрес для проверки отправки сообщений на почту",
+            "handlers": ["email"],
+            "config": {
+                "email": {
+                    "sender": "Имя отправителя",
+                    "subject": "Тема письма",
+                    "body": "Тело сообщения",
+                    "emails": ["to@example.com"],
+                    "smtp": {
+                        "user": "user",
+                        "password": "password",
+                        "server": "server",
+                        "port": 25,
+                        "from": "from@example.com"
+                    }
+                }
+            }
+        },
+        "b6c4bca0b": {
+            "description": "Тестовый адрес для проверки отправки сообщений в телеграм, слак и на почту",
+            "handlers": ["telegram", "slack", "email"],
+            "config": {
+                "telegram": {
+                    "message": "Текст сообщения",
+                    "token": "bot:token",
+                    "chats": [0]
+                },
+                "slack": {
+                    "message": "Текст сообщения",
+                    "token": "token",
+                    "users": ["string-id"]
+                },
+                "email": {
+                    "sender": "Имя отправителя",
+                    "subject": "Тема письма",
+                    "body": "Тело сообщения",
+                    "emails": ["to@example.com"],
+                    "smtp": {
+                        "user": "user",
+                        "password": "password",
+                        "server": "server",
+                        "port": 25,
+                        "from": "from@example.com"
+                    }
+                }
+            }
+        }
+    }
+}
