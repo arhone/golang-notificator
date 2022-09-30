@@ -9,7 +9,7 @@
                 "telegram": {
                     "message": "Текст сообщения",
                     "token": "bot:token",
-                    "chat_id": 0
+                    "chats": [0]
                 }
             }
         },
