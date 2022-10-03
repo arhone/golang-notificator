@@ -32,7 +32,7 @@ cd /srv/arhone/golang-notificator
 ```
 ```shell
 cp .example.env .env
-nanp .env
+nano .env
 ```
 ```shell
 cp config/main/config.example.json config/main/config.json
