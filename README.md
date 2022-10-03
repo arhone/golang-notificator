@@ -13,7 +13,37 @@ curl --location --request POST 'localhost:10001' \
 --form 'text="Тест отправки сообщения в телеграм, слак и на почту одновременно"'
 ```
 
-## Установка
+## Запуск локально
+
+```shell
+cd /srv
+sudo mkdir arhone
+sudo chown $USER:$USER arhone
+```
+```shell
+cd /srv/arhone
+sudo mkdir golang-notificator
+sudo chown $USER:$USER golang-notificator
+```
+```shell
+git clone git@github.com:arhone/golang-notificator.git
+```
+```shell
+cd /srv/arhone/golang-notificator
+```
+```shell
+cp .example.env .env
+nanp .env
+```
+```shell
+cp config/main/config.example.json config/main/config.json
+nano config/main/config.json
+```
+```shell
+go run main.go
+```
+
+## Установка на сервере
 
 ### Добавления deploy ключа в git
 
