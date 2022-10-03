@@ -23,7 +23,6 @@ sudo chown $USER:$USER arhone
 ```shell
 cd /srv/arhone
 sudo mkdir golang-notificator
-sudo chown $USER:$USER golang-notificator
 ```
 ```shell
 git clone git@github.com:arhone/golang-notificator.git
@@ -81,7 +80,6 @@ sudo chown $USER:$USER arhone
 ```shell
 cd /srv/arhone
 sudo mkdir golang-notificator
-sudo chown $USER:$USER golang-notificator
 ```
 
 ```shell
