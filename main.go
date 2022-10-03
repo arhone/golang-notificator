@@ -23,23 +23,23 @@ type (
 
 	// AddressConfigTelegram - Настройки для отправки сообщения в телеграм
 	AddressConfigTelegram struct {
-		Message string `json:"message"`
-		Token   string `json:"token"`
-		Chats   []int  `json:"chats"`
+		Text  string `json:"text"`
+		Token string `json:"token"`
+		Chats []int  `json:"chats"`
 	}
 
 	// AddressConfigSlack - Настройки для отправки сообщения в slack
 	AddressConfigSlack struct {
-		Message string   `json:"message"`
-		Token   string   `json:"token"`
-		Users   []string `json:"users"`
+		Text  string   `json:"text"`
+		Token string   `json:"token"`
+		Users []string `json:"users"`
 	}
 
 	// AddressConfigEmail - Настройки для отправки почты
 	AddressConfigEmail struct {
 		Sender  string   `json:"sender"`
 		Subject string   `json:"subject"`
-		Body    string   `json:"body"`
+		Text    string   `json:"text"`
 		Emails  []string `json:"emails"`
 		SMTP    struct {
 			User     string `json:"user"`
@@ -176,18 +176,18 @@ func router(response http.ResponseWriter, request *http.Request) {
 				if handler == "telegram" {
 
 					parcelTelegram := address.Config.Telegram
-					requestMessage := request.FormValue("message")
-					if requestMessage != "" {
-						parcelTelegram.Message = requestMessage
+					requestText := request.FormValue("text")
+					if requestText != "" {
+						parcelTelegram.Text = requestText
 					}
 					go handlerTelegram(parcelTelegram)
 
 				} else if handler == "slack" {
 
 					parcelSlack := address.Config.Slack
-					requestMessage := request.FormValue("message")
-					if requestMessage != "" {
-						parcelSlack.Message = requestMessage
+					requestText := request.FormValue("text")
+					if requestText != "" {
+						parcelSlack.Text = requestText
 					}
 					go handlerSlack(parcelSlack)
 
@@ -202,9 +202,9 @@ func router(response http.ResponseWriter, request *http.Request) {
 					if requestSubject != "" {
 						parcelEmail.Subject = requestSubject
 					}
-					requestBody := request.FormValue("body")
-					if requestBody != "" {
-						parcelEmail.Body = requestBody
+					requestText := request.FormValue("text")
+					if requestText != "" {
+						parcelEmail.Text = requestText
 					}
 					go handlerEmail(parcelEmail)
 
@@ -279,7 +279,7 @@ func sendMessageToSlack(token string, userId string, message string) bool {
 func handlerSlack(parcel AddressConfigSlack) bool {
 
 	for _, userId := range parcel.Users {
-		go sendMessageToSlack(parcel.Token, userId, parcel.Message)
+		go sendMessageToSlack(parcel.Token, userId, parcel.Text)
 	}
 
 	return true
@@ -307,7 +307,7 @@ func sendMessageToTelegram(token string, chatId int, message string) bool {
 func handlerTelegram(parcel AddressConfigTelegram) bool {
 
 	for _, chatId := range parcel.Chats {
-		go sendMessageToTelegram(parcel.Token, chatId, parcel.Message)
+		go sendMessageToTelegram(parcel.Token, chatId, parcel.Text)
 	}
 
 	return true
@@ -319,7 +319,7 @@ func handlerEmail(parcel AddressConfigEmail) bool {
 
 	var mailTplVars TplVars = MailTplVars{
 		Title: parcel.Subject,
-		Body:  template.HTML(parcel.Body),
+		Body:  template.HTML(parcel.Text),
 	}
 
 	from := "From: " + parcel.Sender + " <" + parcel.SMTP.From + ">\r\n"
