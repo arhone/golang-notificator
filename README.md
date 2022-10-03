@@ -133,7 +133,7 @@ sudo docker logs --tail 50 --follow --timestamps golang-notificator-01
 ## Deploy
 
 ```shell
-. deploy.sh username@example.com
+. deploy.sh develop
 ```
 
 ### Разрешить команду docker-compose без sudo
