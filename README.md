@@ -4,6 +4,8 @@
 
 ## Примеры отправки сообщений
 
+Адрес "b6c4bca0b" настроен в config/main/config.json на отправку в телеграм, слак и на почту
+
 ```shell
 curl --location --request POST 'localhost:10001' \
 --form 'address="b6c4bca0b"' \
