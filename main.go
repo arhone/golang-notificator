@@ -232,12 +232,12 @@ func router(response http.ResponseWriter, request *http.Request) {
 }
 
 // sendMessageToSlack - Отправляет сообщения в slack
-func sendMessageToSlack(token string, userId string, message string) bool {
+func sendMessageToSlack(token string, userId string, text string) bool {
 
-	message = strings.Replace(url.QueryEscape(message), "+", "%20", -1)
+	text = strings.Replace(url.QueryEscape(text), "+", "%20", -1)
 
 	client := http.Client{Timeout: 10 * time.Second}
-	request, err := http.NewRequest("POST", "https://slack.com/api/chat.postMessage?channel="+userId+"&as_user=true&unfurl_links=true&text="+message, nil)
+	request, err := http.NewRequest("POST", "https://slack.com/api/chat.postMessage?channel="+userId+"&as_user=true&unfurl_links=true&text="+text, nil)
 	if err != nil {
 		log.Error(err)
 		return false
@@ -270,6 +270,7 @@ func sendMessageToSlack(token string, userId string, message string) bool {
 		return true
 	}
 
+	log.Debug("slack text: " + text)
 	log.Debug(response)
 	return false
 
@@ -287,17 +288,18 @@ func handlerSlack(parcel AddressConfigSlack) bool {
 }
 
 // sendMessageToTelegram - Отправляет сообщения в телеграм
-func sendMessageToTelegram(token string, chatId int, message string) bool {
+func sendMessageToTelegram(token string, chatId int, text string) bool {
 
 	response, err := http.Get(
 		"https://api.telegram.org/bot" + token +
 			"/sendMessage?chat_id=" + strconv.Itoa(chatId) +
-			"&parse_mode=html&disable_web_page_preview=true&text=" + url.QueryEscape(message))
+			"&parse_mode=html&disable_web_page_preview=true&text=" + url.QueryEscape(text))
 	if err != nil {
 		log.Error(err)
 		return false
 	}
 
+	log.Debug("telegram text: " + text)
 	log.Debug(response)
 	return true
 
