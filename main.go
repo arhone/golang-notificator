@@ -23,9 +23,10 @@ type (
 
 	// AddressConfigTelegram - Настройки для отправки сообщения в телеграм
 	AddressConfigTelegram struct {
-		Text  string `json:"text"`
-		Token string `json:"token"`
-		Chats []int  `json:"chats"`
+		Text    string `json:"text"`
+		Sticker string `json:"sticker"`
+		Token   string `json:"token"`
+		Chats   []int  `json:"chats"`
 	}
 
 	// AddressConfigSlack - Настройки для отправки сообщения в slack
@@ -176,6 +177,10 @@ func router(response http.ResponseWriter, request *http.Request) {
 				if handler == "telegram" {
 
 					parcelTelegram := address.Config.Telegram
+					requestSticker := request.FormValue("sticker")
+					if requestSticker != "" {
+						parcelTelegram.Sticker = requestSticker
+					}
 					requestText := request.FormValue("text")
 					if requestText != "" {
 						parcelTelegram.Text = requestText
@@ -287,6 +292,24 @@ func handlerSlack(parcel AddressConfigSlack) bool {
 
 }
 
+// sendStickerToTelegram - Отправляет стикер в телеграм
+func sendStickerToTelegram(token string, chatId int, sticker string) bool {
+
+	response, err := http.Get(
+		"https://api.telegram.org/bot" + token +
+			"/sendSticker?chat_id=" + strconv.Itoa(chatId) +
+			"&sticker=" + url.QueryEscape(sticker))
+	if err != nil {
+		log.Error(err)
+		return false
+	}
+
+	log.Debug("telegram sticker: " + sticker)
+	log.Debug(response)
+	return true
+
+}
+
 // sendMessageToTelegram - Отправляет сообщения в телеграм
 func sendMessageToTelegram(token string, chatId int, text string) bool {
 
@@ -309,6 +332,7 @@ func sendMessageToTelegram(token string, chatId int, text string) bool {
 func handlerTelegram(parcel AddressConfigTelegram) bool {
 
 	for _, chatId := range parcel.Chats {
+		go sendStickerToTelegram(parcel.Token, chatId, parcel.Sticker)
 		go sendMessageToTelegram(parcel.Token, chatId, parcel.Text)
 	}
 

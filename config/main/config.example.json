@@ -7,7 +7,7 @@
             "handlers": ["telegram"],
             "config": {
                 "telegram": {
-                    "message": "Текст сообщения",
+                    "text": "Текст сообщения",
                     "token": "bot:token",
                     "chats": [0]
                 }
@@ -18,7 +18,7 @@
             "handlers": ["slack"],
             "config": {
                 "slack": {
-                    "message": "Текст сообщения",
+                    "text": "Текст сообщения",
                     "token": "token",
                     "users": ["string-id"]
                 }
@@ -31,7 +31,7 @@
                 "email": {
                     "sender": "Имя отправителя",
                     "subject": "Тема письма",
-                    "body": "Тело сообщения",
+                    "text": "Тело сообщения",
                     "emails": ["to@example.com"],
                     "smtp": {
                         "user": "user",
@@ -48,19 +48,19 @@
             "handlers": ["telegram", "slack", "email"],
             "config": {
                 "telegram": {
-                    "message": "Текст сообщения",
+                    "text": "Текст сообщения",
                     "token": "bot:token",
                     "chats": [0]
                 },
                 "slack": {
-                    "message": "Текст сообщения",
+                    "text": "Текст сообщения",
                     "token": "token",
                     "users": ["string-id"]
                 },
                 "email": {
                     "sender": "Имя отправителя",
                     "subject": "Тема письма",
-                    "body": "Тело сообщения",
+                    "text": "Тело сообщения",
                     "emails": ["to@example.com"],
                     "smtp": {
                         "user": "user",
